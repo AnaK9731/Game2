@@ -137,7 +137,7 @@ public class GUI
 
 
 
-//JLABEL CLASS ENCHULADA CON SOMBRAS Y DEMÁS
+//JLABEL CLASS ENCHULADA CON SOMBRAS Y DEMÁS, OPCIONAL LA VERDAD
 class RichJLabel extends JLabel {
     private int tracking;
 
