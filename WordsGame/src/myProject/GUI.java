@@ -1,4 +1,4 @@
-package myProject;//imported libraries for the GUI
+package myProject;//librerias
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 
 public class GUI
 {
-    //Declared components
+    //Componentes declarados
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, eastP, centerP, westP;
     private JLabel timeLabel;
@@ -30,7 +30,7 @@ public class GUI
 
 
 
-    //Frame method
+    //metodo FRAME
     public GUI()
     {
         frame = new JFrame("JUEGUITO 1.0");
@@ -74,7 +74,7 @@ public class GUI
         northP.add(top);
 
 
-        /**WEST Panel*/
+        /**WEST Panel-botones*/
 
         westP = new JPanel();
         westP.setBorder(new TitledBorder(new EtchedBorder(), "PANEL DE JUEGO"));
@@ -118,7 +118,7 @@ public class GUI
         southP.add(timeLabel);
 
 
-        /**CENTER PANEL*/
+        /**CENTER PANEL-tablero de juegos*/
 
         centerP = new JPanel();
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
@@ -137,7 +137,7 @@ public class GUI
 
 
 
-//RICH JLABEL CLASS
+//JLABEL CLASS ENCHULADA CON SOMBRAS Y DEMÁS
 class RichJLabel extends JLabel {
     private int tracking;
 
