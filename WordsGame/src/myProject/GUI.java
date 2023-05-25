@@ -1,4 +1,4 @@
-package myProject;//librerias
+package myProject;//imported libraries for the GUI
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -15,22 +15,31 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.SQLOutput;
 import javax.swing.JLabel;
 
 
 
 public class GUI
 {
-    //Componentes declarados
+    //Declared components
     static JFrame frame;
-    static JPanel TotalGUI, northP, southP, eastP, centerP, westP;
+    static JPanel TotalGUI, northP, southP, centerP, westP;
     private JLabel timeLabel;
+    private JButton buttonAyuda;
+
+    //Create listener object and control object
+    private Escucha escucha = new Escucha();
 
 
 
 
 
-    //metodo FRAME
+    //Frame method
     public GUI()
     {
         frame = new JFrame("JUEGUITO 1.0");
@@ -74,7 +83,7 @@ public class GUI
         northP.add(top);
 
 
-        /**WEST Panel-botones*/
+        /**WEST Panel*/
 
         westP = new JPanel();
         westP.setBorder(new TitledBorder(new EtchedBorder(), "PANEL DE JUEGO"));
@@ -85,12 +94,15 @@ public class GUI
         left.add(Box.createHorizontalStrut(80));
 
         ButtonGroup JbuttonGroup = new ButtonGroup();
-        JButton buttons;
-        JbuttonGroup.add(buttons = new JButton("AYUDA"));
-        left.add(buttons);
-        buttons.setFont(buttons.getFont().deriveFont(Font.BOLD, 16)); // Cambia el tamaño de la fuente
-        buttons.setBackground(Color.PINK); // Cambia el color de fondo
+        JButton buttons; //cambiar esto
+        JButton buttonAyuda = new JButton("AYUDA");
+        left.add(buttonAyuda);
+        buttonAyuda.setFont(buttonAyuda.getFont().deriveFont(Font.BOLD, 16)); // Cambia el tamaño de la fuente
+        buttonAyuda.setBackground(Color.PINK); // Cambia el color de fondo
         left.add(Box.createVerticalStrut(10));
+        buttonAyuda.addActionListener(escucha);
+       JbuttonGroup.add(buttonAyuda);
+
 
         JbuttonGroup.add(buttons = new JButton("NUEVA PARTIDA"));
         buttons.setFont(buttons.getFont().deriveFont(Font.BOLD, 16)); // Cambia el tamaño de la fuente
@@ -118,7 +130,7 @@ public class GUI
         southP.add(timeLabel);
 
 
-        /**CENTER PANEL-tablero de juegos*/
+        /**CENTER PANEL-tablero*/
 
         centerP = new JPanel();
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
@@ -127,7 +139,59 @@ public class GUI
 
         TotalGUI.setOpaque(true);
         return(TotalGUI);
+
     }
+    private class Escucha implements ActionListener, MouseListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            VentanaAyuda ventanaAyuda = new VentanaAyuda();
+            // Muestra la ventana de ayuda
+            ventanaAyuda.setVisible(true);
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
+
+    public class VentanaAyuda extends JFrame {
+        public VentanaAyuda() {
+            // Configura la ventana de ayuda
+            setTitle("Ventana de Ayuda");
+            setSize(400, 300);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            setLocationRelativeTo(null); // Centra la ventana en la pantalla
+            JTextArea textArea = new JTextArea("El juego consiste en presentar al jugador\nuna secuencia de palabras de una en una, es\ndecir, aparece una palabra,\ndura 5 segundos en pantalla, luego se borra y aparece la\nsiguiente.");
+            textArea.setLineWrap(true); // Activa el ajuste de línea automático
+            textArea.setWrapStyleWord(true); // Ajusta palabras completas en lugar de dividirlas
+
+            getContentPane().add(textArea);
+
+        }
+    }
+
     //Main method calling a new object of
     public static void main(String[] args)
     {
@@ -137,7 +201,7 @@ public class GUI
 
 
 
-//JLABEL CLASS ENCHULADA CON SOMBRAS Y DEMÁS, OPCIONAL LA VERDAD
+//JLABEL CLASS
 class RichJLabel extends JLabel {
     private int tracking;
 
