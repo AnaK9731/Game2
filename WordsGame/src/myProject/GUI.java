@@ -93,29 +93,32 @@ public class GUI
         left.add(Box.createVerticalStrut(10));
         left.add(Box.createHorizontalStrut(80));
 
-        ButtonGroup JbuttonGroup = new ButtonGroup();
-        JButton buttons; //cambiar esto
+        ButtonGroup buttonGroup = new ButtonGroup();
+
         JButton buttonAyuda = new JButton("AYUDA");
-        left.add(buttonAyuda);
-        buttonAyuda.setFont(buttonAyuda.getFont().deriveFont(Font.BOLD, 16)); // Cambia el tamaño de la fuente
-        buttonAyuda.setBackground(Color.PINK); // Cambia el color de fondo
-        left.add(Box.createVerticalStrut(10));
+        buttonAyuda.setFont(buttonAyuda.getFont().deriveFont(Font.BOLD, 16));
+        buttonAyuda.setBackground(Color.PINK);
         buttonAyuda.addActionListener(escucha);
-       JbuttonGroup.add(buttonAyuda);
-
-
-        JbuttonGroup.add(buttons = new JButton("NUEVA PARTIDA"));
-        buttons.setFont(buttons.getFont().deriveFont(Font.BOLD, 16)); // Cambia el tamaño de la fuente
-        buttons.setBackground(Color.GREEN); // Cambia el color de fondo
-        left.add(buttons);
+        buttonGroup.add(buttonAyuda);
+        left.add(buttonAyuda);
         left.add(Box.createVerticalStrut(10));
 
-        JbuttonGroup.add(buttons = new JButton("SALIR"));
-        left.add (left.add(buttons));
-        buttons.setFont(buttons.getFont().deriveFont(Font.BOLD, 16)); // Cambia el tamaño de la fuente
-        buttons.setBackground(Color.RED); // Cambia el color de fondo
+        JButton buttonNew = new JButton("NUEVA PARTIDA");
+        buttonNew.setFont(buttonNew.getFont().deriveFont(Font.BOLD, 16));
+        buttonNew.setBackground(Color.GREEN);
+        buttonGroup.add(buttonNew);
+        left.add(buttonNew);
         left.add(Box.createVerticalStrut(10));
+
+        JButton buttonSalir = new JButton("SALIR");
+        buttonSalir.setFont(buttonSalir.getFont().deriveFont(Font.BOLD, 16));
+        buttonSalir.setBackground(Color.getHSBColor(250, 14, 52));
+        buttonSalir.addActionListener(escucha);
+        buttonGroup.add(buttonSalir);
+        left.add(buttonSalir);
+
         westP.add(left);
+
 
         /**SOUTH PANEL-CRONOMETRO*/
 
@@ -134,6 +137,8 @@ public class GUI
 
         centerP = new JPanel();
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
+
+
         TotalGUI.add(centerP, BorderLayout.CENTER);
 
 
@@ -148,6 +153,9 @@ public class GUI
             VentanaAyuda ventanaAyuda = new VentanaAyuda();
             // Muestra la ventana de ayuda
             ventanaAyuda.setVisible(true);
+
+            JButton buttonSalir= new JButton();
+            System.exit(0); //Cierra la aplicación completa
         }
 
         @Override
