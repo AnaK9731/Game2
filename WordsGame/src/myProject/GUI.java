@@ -27,6 +27,7 @@ import javax.swing.JLabel;
 public class GUI
 {
     //Declared components
+    private Timer timer;
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, centerP, westP;
     private JLabel timeLabel;
@@ -39,6 +40,7 @@ public class GUI
     private JTextArea textArea;
     private  int option;
     private String alias;
+    private int counter;
 
     private int nivel= 1;
 
@@ -75,6 +77,9 @@ public class GUI
         //Falta el objeto de modelGame.
 
 
+        //Inicia el timer
+        timer= new Timer(1000,escucha);
+        timer.setInitialDelay(0);
 
 
 
@@ -182,13 +187,20 @@ public class GUI
                 ventanaAyuda.setVisible(true);
                 // POR QUÉ? JButton buttonSalir = new JButton(); ?
             }
-
-            if (e.getSource() == buttonNew) {
+            if (e.getSource() == timer) {
+                if (counter<5){
+                    counter++; // Incrementa el contador cada segundo
+                    //updateTimerLabel(); // Actualiza la etiqueta del cronómetro
+                    timeLabel.setText("00:00:0"+Integer.toString(counter));
+                    System.out.println("00:00:"+counter);
+                }
+            }else if (e.getSource() == buttonNew) {
                 option = JOptionPane.showOptionDialog(null, scrollPane, "Introduce Un Alias", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
                 if (option == JOptionPane.OK_OPTION) {
                     alias = textArea.getText();
                     centerP.setBorder(new TitledBorder(new EtchedBorder(), alias +". Nivel "+nivel));
                     buttonNew.removeActionListener(escucha);
+                    timer.start(); // Inicia el cronómetro cuando se presiona OK
                 }
             }
             if (e.getSource() == buttonSalir){
