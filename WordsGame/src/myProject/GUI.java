@@ -30,14 +30,17 @@ public class GUI
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, centerP, westP;
     private JLabel timeLabel;
-    private JButton buttonAyuda;
-
+    private JButton buttonNew;
+    private JButton buttonAyuda, buttonSalir;
+    private JLabel palabrasAMostrar;
     //Create listener object and control object
-    private Escucha escucha = new Escucha();
+    private Escucha escucha;
+    private JScrollPane scrollPane;
+    private JTextArea textArea;
+    private  int option;
+    private String alias;
 
-
-
-
+    private int nivel= 1;
 
     //Frame method
     public GUI()
@@ -63,8 +66,26 @@ public class GUI
         frame.setLocation(fx, fy);
     }
 
-    public JPanel create_Content_Pane()
-    {
+    public JPanel create_Content_Pane() {
+
+        //Create listener object and control object
+
+        escucha = new Escucha();
+
+        //Falta el objeto de modelGame.
+
+
+
+
+
+        //Creando un JtextArea
+        textArea = new JTextArea();
+        textArea.setRows(5); // Establece el número de filas visibles
+        textArea.setColumns(20); // Establece el número de columnas visibles
+
+        scrollPane = new JScrollPane(textArea);
+
+
         TotalGUI = new JPanel(new GridLayout(2,2));
         TotalGUI.setLayout(new BorderLayout(2,2));  //set layout for the Container Pane
         northP = new JPanel();
@@ -82,7 +103,6 @@ public class GUI
         top.add(label);
         northP.add(top);
 
-
         /**WEST Panel*/
 
         westP = new JPanel();
@@ -95,7 +115,7 @@ public class GUI
 
         ButtonGroup buttonGroup = new ButtonGroup();
 
-        JButton buttonAyuda = new JButton("AYUDA");
+        buttonAyuda = new JButton("AYUDA");
         buttonAyuda.setFont(buttonAyuda.getFont().deriveFont(Font.BOLD, 16));
         buttonAyuda.setBackground(Color.PINK);
         buttonAyuda.addActionListener(escucha);
@@ -103,19 +123,23 @@ public class GUI
         left.add(buttonAyuda);
         left.add(Box.createVerticalStrut(10));
 
-        JButton buttonNew = new JButton("NUEVA PARTIDA");
+        buttonNew = new JButton("NUEVA PARTIDA");
         buttonNew.setFont(buttonNew.getFont().deriveFont(Font.BOLD, 16));
         buttonNew.setBackground(Color.GREEN);
+        buttonNew.addActionListener(escucha);
         buttonGroup.add(buttonNew);
         left.add(buttonNew);
         left.add(Box.createVerticalStrut(10));
 
-        JButton buttonSalir = new JButton("SALIR");
+        buttonSalir = new JButton("SALIR");
+        buttonSalir.addActionListener(escucha);
         buttonSalir.setFont(buttonSalir.getFont().deriveFont(Font.BOLD, 16));
         buttonSalir.setBackground(Color.getHSBColor(250, 14, 52));
         buttonSalir.addActionListener(escucha);
         buttonGroup.add(buttonSalir);
         left.add(buttonSalir);
+
+
 
         westP.add(left);
 
@@ -133,33 +157,49 @@ public class GUI
         southP.add(timeLabel);
 
 
+
         /**CENTER PANEL-tablero*/
 
         centerP = new JPanel();
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
-
+        //Inicializar los componentes
+        palabrasAMostrar = new JLabel();
 
         TotalGUI.add(centerP, BorderLayout.CENTER);
 
 
         TotalGUI.setOpaque(true);
         return(TotalGUI);
-
     }
+
     private class Escucha implements ActionListener, MouseListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            VentanaAyuda ventanaAyuda = new VentanaAyuda();
-            // Muestra la ventana de ayuda
-            ventanaAyuda.setVisible(true);
+            if (e.getSource() == buttonAyuda) {
+                VentanaAyuda ventanaAyuda = new VentanaAyuda();
+                // Muestra la ventana de ayuda
+                ventanaAyuda.setVisible(true);
+                // POR QUÉ? JButton buttonSalir = new JButton(); ?
+            }
 
-            JButton buttonSalir= new JButton();
-            System.exit(0); //Cierra la aplicación completa
+            if (e.getSource() == buttonNew) {
+                option = JOptionPane.showOptionDialog(null, scrollPane, "Introduce Un Alias", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+                if (option == JOptionPane.OK_OPTION) {
+                    alias = textArea.getText();
+                    centerP.setBorder(new TitledBorder(new EtchedBorder(), alias +". Nivel "+nivel));
+                    buttonNew.removeActionListener(escucha);
+                }
+            }
+            if (e.getSource() == buttonSalir){
+                buttonNew.addActionListener(escucha);
+            }
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
+
+
 
         }
 
@@ -194,9 +234,8 @@ public class GUI
             JTextArea textArea = new JTextArea("El juego consiste en presentar al jugador\nuna secuencia de palabras de una en una, es\ndecir, aparece una palabra,\ndura 5 segundos en pantalla, luego se borra y aparece la\nsiguiente.");
             textArea.setLineWrap(true); // Activa el ajuste de línea automático
             textArea.setWrapStyleWord(true); // Ajusta palabras completas en lugar de dividirlas
-
+            textArea.setEditable(false);
             getContentPane().add(textArea);
-
         }
     }
 
@@ -208,8 +247,7 @@ public class GUI
 }
 
 
-
-//JLABEL CLASS
+//JLABEL CLASSs
 class RichJLabel extends JLabel {
     private int tracking;
 
