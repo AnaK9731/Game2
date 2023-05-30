@@ -154,8 +154,6 @@ public class GUI
             // Muestra la ventana de ayuda
             ventanaAyuda.setVisible(true);
 
-            JButton buttonSalir= new JButton();
-            System.exit(0); //Cierra la aplicación completa
         }
 
         @Override
@@ -186,7 +184,7 @@ public class GUI
 
     public class VentanaAyuda extends JFrame {
         public VentanaAyuda() {
-            // Configura la ventana de ayuda
+            /**Configura la ventana de ayuda
             setTitle("Ventana de Ayuda");
             setSize(400, 300);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -195,7 +193,7 @@ public class GUI
             textArea.setLineWrap(true); // Activa el ajuste de línea automático
             textArea.setWrapStyleWord(true); // Ajusta palabras completas en lugar de dividirlas
 
-            getContentPane().add(textArea);
+            getContentPane().add(textArea);*/
 
         }
     }
