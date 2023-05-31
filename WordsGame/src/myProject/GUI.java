@@ -22,7 +22,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLOutput;
 import javax.swing.JLabel;
 
-
+/*/ ayuda*/
 
 public class GUI
 {
