@@ -21,8 +21,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 
-
-
 public class GUI {
     //Declared components
     private Timer timer;
@@ -39,6 +37,7 @@ public class GUI {
     private int option;
     private String alias;
     private int counter;
+
 
 
 
@@ -188,6 +187,7 @@ public class GUI {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
             if (e.getSource() == buttonAyuda) {
                 VentanaAyuda ventanaAyuda = new VentanaAyuda();
                 // Muestra la ventana de ayuda
