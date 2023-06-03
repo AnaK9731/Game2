@@ -164,8 +164,7 @@ public class GUI {
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
         JTextArea textArea = new JTextArea ("palabra");
         textArea.setForeground(Color.BLACK);
-        textArea.setBackground(Color.LIGHT_GRAY);
-        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 44));
+        textArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 64));
         textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerP.add(textArea);
 
