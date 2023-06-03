@@ -19,13 +19,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLOutput;
 import javax.swing.JLabel;
 
+//Import Random Lectura
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
-public class GUI
-{
+public class GUI {
     //Declared components
     private Timer timer;
     static JFrame frame;
@@ -38,15 +43,16 @@ public class GUI
     private Escucha escucha;
     private JScrollPane scrollPane;
     private JTextArea textArea;
-    private  int option;
+    private int option;
     private String alias;
     private int counter;
 
-    private int nivel= 1;
+
+
+    private int nivel = 1;
 
     //Frame method
-    public GUI()
-    {
+    public GUI() {
         frame = new JFrame("JUEGUITO 1.0");
         frame.setExtendedState(frame.NORMAL);
 
@@ -61,8 +67,8 @@ public class GUI
         // gets & sets frame size/location
         int fw = frame.getSize().width;
         int fh = frame.getSize().height;
-        int fx = (dim.width-fw)/2;
-        int fy = (dim.height-fh)/2;
+        int fx = (dim.width - fw) / 2;
+        int fy = (dim.height - fh) / 2;
 
         //moves the frame
         frame.setLocation(fx, fy);
@@ -78,9 +84,8 @@ public class GUI
 
 
         //Inicia el timer
-        timer= new Timer(1000,escucha);
+        timer = new Timer(1000, escucha);
         timer.setInitialDelay(0);
-
 
 
         //Creando un JtextArea
@@ -91,14 +96,14 @@ public class GUI
         scrollPane = new JScrollPane(textArea);
 
 
-        TotalGUI = new JPanel(new GridLayout(2,2));
-        TotalGUI.setLayout(new BorderLayout(2,2));  //set layout for the Container Pane
+        TotalGUI = new JPanel(new GridLayout(2, 2));
+        TotalGUI.setLayout(new BorderLayout(2, 2));  //set layout for the Container Pane
         northP = new JPanel();
         TotalGUI.add(northP, BorderLayout.NORTH);
 
         RichJLabel label = new RichJLabel("I KNOW THAT WORD");
-        label.setLeftShadow(1,1,Color.black);
-        label.setRightShadow(1,1,Color.gray);
+        label.setLeftShadow(1, 1, Color.black);
+        label.setRightShadow(1, 1, Color.gray);
         label.setForeground(Color.ORANGE);
         label.setFont(label.getFont().deriveFont(68f));
 
@@ -139,11 +144,10 @@ public class GUI
         buttonSalir = new JButton("SALIR");
         buttonSalir.addActionListener(escucha);
         buttonSalir.setFont(buttonSalir.getFont().deriveFont(Font.BOLD, 16));
-        buttonSalir.setBackground(Color.getHSBColor(250, 14, 52));
+        buttonSalir.setBackground(Color.red);
         buttonSalir.addActionListener(escucha);
         buttonGroup.add(buttonSalir);
         left.add(buttonSalir);
-
 
 
         westP.add(left);
@@ -162,19 +166,29 @@ public class GUI
         southP.add(timeLabel);
 
 
-
         /**CENTER PANEL-tablero*/
 
         centerP = new JPanel();
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
-        //Inicializar los componentes
-        palabrasAMostrar = new JLabel();
+        JTextArea textArea = new JTextArea ("palabra");
+        textArea.setForeground(Color.BLACK);
+        textArea.setBackground(Color.LIGHT_GRAY);
+        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 44));
+        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerP.add(textArea);
+
+
+
+        centerP.add(textArea);
+
 
         TotalGUI.add(centerP, BorderLayout.CENTER);
 
 
         TotalGUI.setOpaque(true);
-        return(TotalGUI);
+        return (TotalGUI);
+
+
     }
 
     private class Escucha implements ActionListener, MouseListener {
@@ -185,32 +199,31 @@ public class GUI
                 VentanaAyuda ventanaAyuda = new VentanaAyuda();
                 // Muestra la ventana de ayuda
                 ventanaAyuda.setVisible(true);
-                // POR QUÉ? JButton buttonSalir = new JButton(); ?
+
             }
             if (e.getSource() == timer) {
-                if (counter<5){
+                if (counter < 5) {
                     counter++; // Incrementa el contador cada segundo
                     //updateTimerLabel(); // Actualiza la etiqueta del cronómetro
-                    timeLabel.setText("00:00:0"+Integer.toString(counter));
-                    System.out.println("00:00:"+counter);
+                    timeLabel.setText("00:00:0" + Integer.toString(counter));
+                    System.out.println("00:00:" + counter);
                 }
-            }else if (e.getSource() == buttonNew) {
+            } else if (e.getSource() == buttonNew) {
                 option = JOptionPane.showOptionDialog(null, scrollPane, "Introduce Un Alias", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
                 if (option == JOptionPane.OK_OPTION) {
                     alias = textArea.getText();
-                    centerP.setBorder(new TitledBorder(new EtchedBorder(), alias +". Nivel "+nivel));
+                    centerP.setBorder(new TitledBorder(new EtchedBorder(), alias + ". Nivel " + nivel));
                     buttonNew.removeActionListener(escucha);
                     timer.start(); // Inicia el cronómetro cuando se presiona OK
                 }
             }
-            if (e.getSource() == buttonSalir){
+            if (e.getSource() == buttonSalir) {
                 buttonNew.addActionListener(escucha);
             }
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
-
 
 
         }
@@ -236,6 +249,9 @@ public class GUI
         }
     }
 
+
+
+
     public class VentanaAyuda extends JFrame {
         public VentanaAyuda() {
             // Configura la ventana de ayuda
@@ -251,79 +267,81 @@ public class GUI
         }
     }
 
+
+
     //Main method calling a new object of
-    public static void main(String[] args)
-    {
-        new GUI();
-    }
-}
+ public static void main(String[] args) {
+            new GUI();
+        }
 
 
-//JLABEL CLASSs
-class RichJLabel extends JLabel {
-    private int tracking;
+        //JLABEL CLASSs
+        class RichJLabel extends JLabel {
+            private int tracking;
 
-    public RichJLabel(String text) {
-        super(text);
-        this.tracking = tracking;
-    }
+            public RichJLabel(String text) {
+                super(text);
+                this.tracking = tracking;
+            }
 
-    private int left_x, left_y, right_x, right_y;
-    private Color left_color, right_color;
+            private int left_x, left_y, right_x, right_y;
+            private Color left_color, right_color;
 
-    public void setLeftShadow(int x, int y, Color color) {
-        left_x = x;
-        left_y = y;
-        left_color = color;
-    }
+            public void setLeftShadow(int x, int y, Color color) {
+                left_x = x;
+                left_y = y;
+                left_color = color;
+            }
 
-    public void setRightShadow(int x, int y, Color color) {
-        right_x = x;
-        right_y = y;
-        right_color = color;
-    }
+            public void setRightShadow(int x, int y, Color color) {
+                right_x = x;
+                right_y = y;
+                right_color = color;
+            }
 
-    public Dimension getPreferredSize() {
-        String text = getText();
-        FontMetrics fm = this.getFontMetrics(getFont());
+            public Dimension getPreferredSize() {
+                String text = getText();
+                FontMetrics fm = this.getFontMetrics(getFont());
 
-        int w = fm.stringWidth(text);
-        w += (text.length()) * tracking;
-        w += left_x + right_x;
-        int h = fm.getHeight();
-        h += left_y + right_y;
+                int w = fm.stringWidth(text);
+                w += (text.length()) * tracking;
+                w += left_x + right_x;
+                int h = fm.getHeight();
+                h += left_y + right_y;
 
-        return new Dimension(w, h);
-    }
+                return new Dimension(w, h);
+            }
 
-    public void paintComponent(Graphics g) {
-        ((Graphics2D) g).setRenderingHint(
-                RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        char[] chars = getText().toCharArray();
+            public void paintComponent(Graphics g) {
+                ((Graphics2D) g).setRenderingHint(
+                        RenderingHints.KEY_TEXT_ANTIALIASING,
+                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                char[] chars = getText().toCharArray();
 
-        FontMetrics fm = this.getFontMetrics(getFont());
+                FontMetrics fm = this.getFontMetrics(getFont());
 
-        int h = fm.getAscent();
-        int x = 0;
+                int h = fm.getAscent();
+                int x = 0;
 
-        for (int i = 0; i < chars.length; i++) {
-            char ch = chars[i];
-            int w = fm.charWidth(ch) + tracking;
+                for (int i = 0; i < chars.length; i++) {
+                    char ch = chars[i];
+                    int w = fm.charWidth(ch) + tracking;
 
-            g.setColor(left_color);
-            g.drawString("" + chars[i], x - left_x, h - left_y);
+                    g.setColor(left_color);
+                    g.drawString("" + chars[i], x - left_x, h - left_y);
 
-            g.setColor(right_color);
-            g.drawString("" + chars[i], x + right_x, h + right_y);
+                    g.setColor(right_color);
+                    g.drawString("" + chars[i], x + right_x, h + right_y);
 
-            g.setColor(this.getForeground());
-            g.drawString("" + chars[i], x, h);
+                    g.setColor(this.getForeground());
+                    g.drawString("" + chars[i], x, h);
 
-            x += w;
+                    x += w;
+                }
+            }
         }
     }
-}
+
 
 
 
