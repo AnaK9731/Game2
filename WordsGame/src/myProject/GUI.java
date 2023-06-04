@@ -28,9 +28,9 @@ public class GUI {
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, centerP, westP;
     private JLabel timeLabel;
-    private JButton buttonNew;
+    private JButton buttonNew, buttonYes,  buttonNo;
     private JButton buttonAyuda, buttonSalir;
-    private JLabel palabrasAMostrar;
+
     //Create listener object and control object
     private Escucha escucha;
     private JScrollPane scrollPane;
@@ -159,23 +159,27 @@ public class GUI {
         timeLabel.setForeground(Color.RED);
         southP.add(timeLabel);
 
-
-        /**CENTER PANEL-tablero*/
-
-        centerP = new JPanel();
+        //TABLERO
+        centerP = new JPanel(new FlowLayout(FlowLayout.CENTER));
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
-        JTextArea textArea = new JTextArea ("palabra");
+        JTextArea textArea = new JTextArea("palabra");
         textArea.setForeground(Color.BLACK);
         textArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 64));
         textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-        centerP.add(textArea);
+        centerP.add(textArea); // Agregar el área de texto
 
+        buttonYes = new JButton("SI");
+        buttonYes.setFont(buttonNew.getFont().deriveFont(Font.BOLD, 66));
+        buttonYes.setBackground(Color.GREEN);
+        buttonYes.addActionListener(escucha);
+        centerP.add(buttonYes); // Agregar el botón "SI"
 
-
-        centerP.add(textArea);
-
-
-        TotalGUI.add(centerP, BorderLayout.CENTER);
+        buttonNo = new JButton("NO"); // Corregir el nombre del botón a "buttonNo"
+        buttonNo.setFont(buttonNew.getFont().deriveFont(Font.BOLD, 63));
+        buttonNo.setBackground(Color.RED);
+        buttonNo.addActionListener(escucha);
+        centerP.add(buttonNo); // Agregar el botón "NO"
+       TotalGUI.add(centerP, BorderLayout.CENTER);
 
 
         TotalGUI.setOpaque(true);
@@ -220,14 +224,16 @@ public class GUI {
                     centerP.setBorder(new TitledBorder(new EtchedBorder(), alias + ". Nivel " + nivel));
                     buttonNew.removeActionListener(escucha);
                     timer.start(); // Inicia el cronómetro cuando se presiona OK
-                    modelGame.leerTxt("C:\\Users\\Usuario\\Desktop\\Game2\\WordsGame\\src\\recursos\\palabras.txt");
+                    modelGame.leerTxt("recursos/palabras.txt");
                     modelGame.niveles();
                     palabrasAGanar = modelGame.getPalabrasElegidas();
                 }
             }
             if (e.getSource() == buttonSalir) {
+                System.exit(0);
                 buttonNew.addActionListener(escucha);
             }
+
         }
 
         @Override
