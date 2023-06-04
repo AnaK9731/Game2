@@ -193,23 +193,25 @@ public class GUI {
                 VentanaAyuda ventanaAyuda = new VentanaAyuda();
                 // Muestra la ventana de ayuda
                 ventanaAyuda.setVisible(true);
-
             }
             if (e.getSource() == timer) {
                 if (counter < 5) {
-                    counter++; // Incrementa el contador cada segundo
+                    counter++;// Incrementa el contador cada segundo
                     //updateTimerLabel(); // Actualiza la etiqueta del cronómetro
                     timeLabel.setText("00:00:0" + Integer.toString(counter));
                     System.out.println("00:00:" + counter);
                     palabrasMostrar = modelGame.getPalabrasAleatorias();
-
-                    while ( i < palabrasMostrar.size() ) {
-                        String palabra = palabrasMostrar.get(i);
-                        System.out.println("Palabra en la posición " + i + ": " + palabra);
-                        // Realiza cualquier acción adicional que necesites con la palabra en esta posición
-                        i++;
-                        break;
+                    if (counter==1){
+                        while ( i < palabrasMostrar.size() ) {
+                            String palabra = palabrasMostrar.get(i);
+                            System.out.println("Palabra en la posición " + i + ": " + palabra);
+                            // Realiza cualquier acción adicional que necesites con la palabra en esta posición
+                            i++;
+                            break;
+                        }
                     }
+                } else if (counter==5) {
+                    counter=0;
                 }
             } else if (e.getSource() == buttonNew) {
                 option = JOptionPane.showOptionDialog(null, scrollPane, "Introduce Un Alias", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
@@ -218,9 +220,8 @@ public class GUI {
                     centerP.setBorder(new TitledBorder(new EtchedBorder(), alias + ". Nivel " + nivel));
                     buttonNew.removeActionListener(escucha);
                     timer.start(); // Inicia el cronómetro cuando se presiona OK
-                    modelGame.leerTxt("C:\\Users\\jose1\\OneDrive\\Escritorio\\Game2\\WordsGame\\src\\recursos\\palabras.txt");
+                    modelGame.leerTxt("C:\\Users\\Usuario\\Desktop\\Game2\\WordsGame\\src\\recursos\\palabras.txt");
                     modelGame.niveles();
-
                     palabrasAGanar = modelGame.getPalabrasElegidas();
                 }
             }
