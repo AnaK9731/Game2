@@ -1,7 +1,8 @@
 package myProject;//imported libraries for the GUI
 import javax.swing.*;
 import javax.swing.border.*;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.Toolkit;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -37,8 +38,9 @@ public class GUI {
     private int option;
     private String alias;
     private int counter;
-
-
+    private modelGame modelGame;
+    private List<String> palabrasAGanar, palabrasMostrar;
+    private int i = 0;
 
 
     private int nivel = 1;
@@ -73,7 +75,7 @@ public class GUI {
         escucha = new Escucha();
 
         //Falta el objeto de modelGame.
-
+        modelGame = new modelGame();
 
         //Inicia el timer
         timer = new Timer(1000, escucha);
@@ -200,6 +202,15 @@ public class GUI {
                     //updateTimerLabel(); // Actualiza la etiqueta del cronómetro
                     timeLabel.setText("00:00:0" + Integer.toString(counter));
                     System.out.println("00:00:" + counter);
+                    palabrasMostrar = modelGame.getPalabrasAleatorias();
+
+                    while ( i < palabrasMostrar.size() ) {
+                        String palabra = palabrasMostrar.get(i);
+                        System.out.println("Palabra en la posición " + i + ": " + palabra);
+                        // Realiza cualquier acción adicional que necesites con la palabra en esta posición
+                        i++;
+                        break;
+                    }
                 }
             } else if (e.getSource() == buttonNew) {
                 option = JOptionPane.showOptionDialog(null, scrollPane, "Introduce Un Alias", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
@@ -208,6 +219,10 @@ public class GUI {
                     centerP.setBorder(new TitledBorder(new EtchedBorder(), alias + ". Nivel " + nivel));
                     buttonNew.removeActionListener(escucha);
                     timer.start(); // Inicia el cronómetro cuando se presiona OK
+                    modelGame.leerTxt("C:\\Users\\jose1\\OneDrive\\Escritorio\\Game2\\WordsGame\\src\\recursos\\palabras.txt");
+                    modelGame.niveles();
+
+                    palabrasAGanar = modelGame.getPalabrasElegidas();
                 }
             }
             if (e.getSource() == buttonSalir) {
