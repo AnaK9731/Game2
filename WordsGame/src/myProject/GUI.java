@@ -25,7 +25,8 @@ import javax.swing.text.Document;
 
 public class GUI {
     //Declared components
-    private Timer timer;
+    private int estado= 0;
+    private Timer timer, timerPalabras;
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, centerP, westP;
     private JLabel timeLabel;
@@ -39,10 +40,10 @@ public class GUI {
     private int option;
     private String alias;
 
-    private int counter;
+    private int counter, segundos;
     private modelGame modelGame;
     private List<String> palabrasAGanar, palabrasMostrar;
-    private int stopTimer=0;
+    private int stopTimer=0, stopTimerAganar=0;
     private int i = 0;
     private int nivel = 1;
 
@@ -79,9 +80,10 @@ public class GUI {
         modelGame = new modelGame();
 
         //Inicia el timer
+        timerPalabras = new Timer(100,escucha);
+        timerPalabras.setInitialDelay(0);
         timer = new Timer(100, escucha);
         timer.setInitialDelay(0);
-
 
         //Creando un JtextArea
         textArea = new JTextArea();
@@ -187,7 +189,7 @@ public class GUI {
 
     }
 
-    private class Escucha implements ActionListener, MouseListener {
+    private class Escucha implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -202,11 +204,10 @@ public class GUI {
                     counter++;// Incrementa el contador cada segundo
                     //updateTimerLabel(); // Actualiza la etiqueta del cronómetro
                     timeLabel.setText("00:00:0" + Integer.toString(counter));
-                    System.out.println("00:00:" + counter);
-                    palabrasMostrar = modelGame.getPalabrasAleatorias();
+                    palabrasAGanar = modelGame.getPalabrasElegidas();
                     if (counter==1){
-                        while ( i < palabrasMostrar.size() ) {
-                            String palabra = palabrasMostrar.get(i);
+                        while ( i < palabrasAGanar.size() ) {
+                            String palabra = palabrasAGanar.get(i);
                             /**System.out.println("Palabra en la posición " + i + ": " + palabra);
                              // Realiza cualquier acción adicional que necesites con la palabra en esta posición*/
                             textArea.setText(palabra.toString());
@@ -224,25 +225,67 @@ public class GUI {
                             break;
                         }
                     }
-                    if (stopTimer==palabrasMostrar.size()){
+                    if (stopTimer==palabrasAGanar.size()){
                         if (counter==5){
+                            estado=1;
                             timer.stop();
+                            i = 0;
                             JOptionPane.showMessageDialog(null,"PREPARATE PARA SELECCIONAR SI O NO.");
+                            timerPalabras.start();
                         }
                     }
                     if (counter >4){
-
+                        //revalidar y pintar ocn el counter pasado los 5
                         centerP.revalidate(); // Actualizar el diseño del panel
                         centerP.repaint();
                     }
-                    //revalidar y pintar ocn el counter pasado los 5
                 }
                 else if (counter==5) {
                     counter=0;
                 }
-            } else if (e.getSource() == buttonNew) {
+            }
+            //Iniciando a mostrar las palabras aleatorias para que seleccione las correctas.
+            if (estado==1){
+                if (e.getSource() == timerPalabras) {
+                    if (segundos < 5) {
+                        segundos++;// Incrementa el contador cada segundo
+                        timeLabel.setText("00:00:0" + Integer.toString(segundos));
+                        palabrasMostrar = modelGame.getPalabrasAleatorias();
+                        if (segundos==1){
+                            while ( i < palabrasMostrar.size() ) {
+                                String palabra = palabrasMostrar.get(i);
+                                /**System.out.println("Palabra en la posición " + i + ": " + palabra);
+                                 // Realiza cualquier acción adicional que necesites con la palabra en esta posición*/
+                                textArea.setText(palabra.toString());
+                                textArea.setForeground(Color.BLACK);
+                                textArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
+                                textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+                                centerP.add(textArea); // Agregar el área de texto
+                                stopTimerAganar++;
+                                i++;
+                                break;
+                            }
+                        }
+                        if (stopTimerAganar==palabrasMostrar.size()){
+                            if (counter==5){
+                                estado=0;
+                                timerPalabras.stop();
+                            }
+                        }
+                        if (counter >4){
+                            //revalidar y pintar ocn el counter pasado los 5
+                            centerP.revalidate(); // Actualizar el diseño del panel
+                            centerP.repaint();
+                        }
+                    } else if (segundos==5) {
+                        segundos=0;
+                    }
+                }
+            }
+            else if (e.getSource() == buttonNew) {
                 option = JOptionPane.showOptionDialog(null, scrollPane, "Introduce Un Alias", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
                 if (option == JOptionPane.OK_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Memoriza las palabras");
                     alias = textArea.getText();
                     centerP.setBorder(new TitledBorder(new EtchedBorder(), alias + ". Nivel " + nivel));
                     buttonNew.removeActionListener(escucha);
@@ -257,37 +300,7 @@ public class GUI {
                 buttonNew.addActionListener(escucha);
             }
         }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
     }
-
-
-
-
     public class VentanaAyuda extends JFrame {
         public VentanaAyuda() {
             // Configura la ventana de ayuda
