@@ -450,11 +450,12 @@ cordones
 abrigo
 chaqueta
 calcetines
-bragas, calzón
+bragas
+calzón
 calzoncillo
 falda
 Transportes
-tránsito,
+tránsito
 tráfico
 vehículo
 tren
@@ -608,8 +609,10 @@ velocidad
 aceleración
 dirección
 tamaño
-largo, longitud
-alto, altura
+largo
+longitud
+alto
+altura
 ancho
 mayoría
 minoría
@@ -932,7 +935,8 @@ pegar
 Sensaciones
 sentir
 ver
-oír, escuchar
+oír
+escuchar
 tocar
 oler
 percibir
@@ -1093,14 +1097,14 @@ nunca
 jamás
 también
 tampoco
-quizá, quizás
+quizá
+quizás
 acaso
 fácilmente
 difícilmente
 probablemente
 posiblemente
 seguramente
-Adverbios temporales
 antes
 anteriormente
 actualmente
