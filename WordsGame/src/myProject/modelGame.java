@@ -100,5 +100,4 @@ public class modelGame {
             System.out.println(palabrasElegidas);
         }
     }
-
 }

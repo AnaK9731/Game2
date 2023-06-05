@@ -42,11 +42,8 @@ public class GUI {
     private int counter;
     private modelGame modelGame;
     private List<String> palabrasAGanar, palabrasMostrar;
-
-
+    private int stopTimer=0;
     private int i = 0;
-
-
     private int nivel = 1;
 
     //Frame method
@@ -82,7 +79,7 @@ public class GUI {
         modelGame = new modelGame();
 
         //Inicia el timer
-        timer = new Timer(1000, escucha);
+        timer = new Timer(100, escucha);
         timer.setInitialDelay(0);
 
 
@@ -217,18 +214,21 @@ public class GUI {
                             textArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
                             textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
                             centerP.add(textArea); // Agregar el área de texto
+                            stopTimer++;
                             i++;
                             break;
                         }
                     }
-
+                    if (stopTimer==palabrasMostrar.size()){
+                        if (counter==5){
+                            timer.stop();
+                            JOptionPane.showMessageDialog(null,"PREPARATE PARA SELECCIONAR SI O NO.");
+                        }
+                    }
                     if (counter >4){
-                        centerP.remove(textArea); // Remover el área de texto del panel
                         centerP.revalidate(); // Actualizar el diseño del panel
                         centerP.repaint();
                     }
-
-
                     //revalidar y pintar ocn el counter pasado los 5
                 }
                 else if (counter==5) {
@@ -241,18 +241,15 @@ public class GUI {
                     centerP.setBorder(new TitledBorder(new EtchedBorder(), alias + ". Nivel " + nivel));
                     buttonNew.removeActionListener(escucha);
                     timer.start(); // Inicia el cronómetro cuando se presiona OK
-                    System.out.println(modelGame.leerTxt("C:\\Users\\tylum\\Desktop\\palabras.txt"));
+                    System.out.println(modelGame.leerTxt("C:\\Users\\Usuario\\Desktop\\Game2\\WordsGame\\src\\recursos\\palabras.txt"));
                     modelGame.niveles();
                     palabrasAGanar = modelGame.getPalabrasElegidas();
-
-
                 }
             }
             if (e.getSource() == buttonSalir) {
                 System.exit(0);
                 buttonNew.addActionListener(escucha);
             }
-
         }
 
         @Override
