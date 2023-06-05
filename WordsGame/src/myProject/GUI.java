@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JLabel;
+import javax.swing.text.Document;
 
 public class GUI {
     //Declared components
@@ -37,9 +38,12 @@ public class GUI {
     private JTextArea textArea;
     private int option;
     private String alias;
+
     private int counter;
     private modelGame modelGame;
     private List<String> palabrasAGanar, palabrasMostrar;
+
+
     private int i = 0;
 
 
@@ -162,11 +166,8 @@ public class GUI {
         //TABLERO
         centerP = new JPanel(new FlowLayout(FlowLayout.CENTER));
         centerP.setBorder(new TitledBorder(new EtchedBorder(), "TABLERO"));
-        JTextArea textArea = new JTextArea("palabra");
-        textArea.setForeground(Color.BLACK);
-        textArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 64));
-        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-        centerP.add(textArea); // Agregar el área de texto
+
+
 
         buttonYes = new JButton("SI");
         buttonYes.setFont(buttonNew.getFont().deriveFont(Font.BOLD, 66));
@@ -179,6 +180,7 @@ public class GUI {
         buttonNo.setBackground(Color.RED);
         buttonNo.addActionListener(escucha);
         centerP.add(buttonNo); // Agregar el botón "NO"
+
        TotalGUI.add(centerP, BorderLayout.CENTER);
 
 
@@ -208,13 +210,28 @@ public class GUI {
                     if (counter==1){
                         while ( i < palabrasMostrar.size() ) {
                             String palabra = palabrasMostrar.get(i);
-                            System.out.println("Palabra en la posición " + i + ": " + palabra);
-                            // Realiza cualquier acción adicional que necesites con la palabra en esta posición
+                            /**System.out.println("Palabra en la posición " + i + ": " + palabra);
+                            // Realiza cualquier acción adicional que necesites con la palabra en esta posición*/
+                            textArea.setText(palabra.toString());
+                            textArea.setForeground(Color.BLACK);
+                            textArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
+                            textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            centerP.add(textArea); // Agregar el área de texto
                             i++;
                             break;
                         }
                     }
-                } else if (counter==5) {
+
+                    if (counter >4){
+                        centerP.remove(textArea); // Remover el área de texto del panel
+                        centerP.revalidate(); // Actualizar el diseño del panel
+                        centerP.repaint();
+                    }
+
+
+                    //revalidar y pintar ocn el counter pasado los 5
+                }
+                else if (counter==5) {
                     counter=0;
                 }
             } else if (e.getSource() == buttonNew) {
@@ -224,9 +241,11 @@ public class GUI {
                     centerP.setBorder(new TitledBorder(new EtchedBorder(), alias + ". Nivel " + nivel));
                     buttonNew.removeActionListener(escucha);
                     timer.start(); // Inicia el cronómetro cuando se presiona OK
-                    modelGame.leerTxt("recursos/palabras.txt");
+                    System.out.println(modelGame.leerTxt("C:\\Users\\tylum\\Desktop\\palabras.txt"));
                     modelGame.niveles();
                     palabrasAGanar = modelGame.getPalabrasElegidas();
+
+
                 }
             }
             if (e.getSource() == buttonSalir) {
