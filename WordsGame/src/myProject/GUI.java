@@ -8,7 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.*;
 import javax.swing.Timer;
 
-//Rich JLabel
+//imports para el Rich JLabel
 
 import java.awt.Color;
 
@@ -92,6 +92,8 @@ public class GUI {
         TotalGUI.setLayout(new BorderLayout(2, 2));  //set layout for the Container Pane
         northP = new JPanel();
         TotalGUI.add(northP, BorderLayout.NORTH);
+        
+        //titulo con colorsillos
 
         RichJLabel label = new RichJLabel("I KNOW THAT WORD");
         label.setLeftShadow(1, 1, Color.black);
@@ -114,7 +116,9 @@ public class GUI {
         Box left = Box.createVerticalBox();
         left.add(Box.createVerticalStrut(10));
         left.add(Box.createHorizontalStrut(80));
-
+        
+        
+        //se agrupa los botones para que queden en el panel WEST
         ButtonGroup buttonGroup = new ButtonGroup();
 
         buttonAyuda = new JButton("AYUDA");
@@ -202,6 +206,8 @@ public class GUI {
                 nivel = 2;
                 timer.start();
             }
+            
+            //verificacion de palabras
             if (e.getSource()==buttonNo){
                     wordJtexArea = textArea.getText();
                     if (wordToWin.contains(wordJtexArea)){
@@ -241,6 +247,8 @@ public class GUI {
                             break;
                         }
                     }
+                    
+                    //intermedio entre palabras 
                     if (stopTimer== wordToWin.size()){
                         if (counter==5){
                             estado=1;
@@ -318,6 +326,7 @@ public class GUI {
             }
         }
     }
+    //Ventana de ayuda
     public class VentanaAyuda extends JFrame {
         public VentanaAyuda() {
             // Configura la ventana de ayuda
@@ -377,6 +386,8 @@ public class GUI {
 
             return new Dimension(w, h);
         }
+        
+        //se agregan graficos al contorno del titulo
 
         public void paintComponent(Graphics g) {
             ((Graphics2D) g).setRenderingHint(
