@@ -1,7 +1,6 @@
 package myProject;//imported libraries for the GUI
 import javax.swing.*;
 import javax.swing.border.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.Toolkit;
 import java.awt.Dimension;
@@ -18,16 +17,13 @@ import javax.swing.ButtonGroup;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JLabel;
-import javax.swing.text.Document;
 
 public class GUI {
     //Declared components
     private int estado= 0;
     private Timer timer, timerPalabras;
-    private String palabraJtextArea;
+    private String wordJtexArea;
     private int contadorAGanar=0;
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, centerP, westP;
@@ -44,7 +40,7 @@ public class GUI {
 
     private int counter, segundos;
     private modelGame modelGame;
-    private List<String> palabrasAGanar, palabrasMostrar;
+    private List<String> wordToWin, ShowWords;
     private int stopTimer=0, stopTimerAganar=0;
     private int i = 0;
     private int nivel = 1;
@@ -191,16 +187,16 @@ public class GUI {
         public void actionPerformed(ActionEvent e) {
 
             if (e.getSource()==buttonYes){
-                palabraJtextArea = textArea.getText();
-                if (palabrasAGanar.contains(palabraJtextArea)) {
-                    System.out.println("La palabra '" + palabraJtextArea + "' está en la lista de palabras elegidas.");
-                    contadorAGanar++;
+                wordJtexArea = textArea.getText();
+                if (wordToWin.contains(wordJtexArea)) {
+                    System.out.println("La palabra '" + wordJtexArea + "' está en la lista de palabras elegidas.");
+
                 }
             }
             if (e.getSource()==buttonNo){
-                    palabraJtextArea = textArea.getText();
-                    if (palabrasAGanar.contains(palabraJtextArea)){
-                        JOptionPane.showMessageDialog(null,"La palabra '" + palabraJtextArea + "' Si está en la lista de palabras elegidas.");
+                    wordJtexArea = textArea.getText();
+                    if (wordToWin.contains(wordJtexArea)){
+                        JOptionPane.showMessageDialog(null,"La palabra '" + wordJtexArea + "' Si está en la lista de palabras elegidas.");
                         // Realiza la acción que deseas cuando la palabra NO está en la lista
                     }
             }
@@ -214,10 +210,10 @@ public class GUI {
                     counter++;// Incrementa el contador cada segundo
                     //updateTimerLabel(); // Actualiza la etiqueta del cronómetro
                     timeLabel.setText("00:00:0" + Integer.toString(counter));
-                    palabrasAGanar = modelGame.getPalabrasElegidas();
+                    wordToWin = modelGame.getPalabrasElegidas();
                     if (counter==1){
-                        while ( i < palabrasAGanar.size() ) {
-                            String palabra = palabrasAGanar.get(i);
+                        while ( i < wordToWin.size() ) {
+                            String palabra = wordToWin.get(i);
                             /**System.out.println("Palabra en la posición " + i + ": " + palabra);
                             // Realiza cualquier acción adicional que necesites con la palabra en esta posición*/
                             textArea.setText(palabra.toString());
@@ -230,7 +226,7 @@ public class GUI {
                             break;
                         }
                     }
-                    if (stopTimer==palabrasAGanar.size()){
+                    if (stopTimer== wordToWin.size()){
                         if (counter==5){
                             estado=1;
                             timer.stop();
@@ -255,10 +251,10 @@ public class GUI {
                     if (segundos < 5) {
                         segundos++;// Incrementa el contador cada segundo
                         timeLabel.setText("00:00:0" + Integer.toString(segundos));
-                        palabrasMostrar = modelGame.getPalabrasAleatorias();
+                        ShowWords = modelGame.getPalabrasAleatorias();
                         if (segundos==1){
-                            while ( i < palabrasMostrar.size() ) {
-                                String palabra = palabrasMostrar.get(i);
+                            while ( i < ShowWords.size() ) {
+                                String palabra = ShowWords.get(i);
                                 /**System.out.println("Palabra en la posición " + i + ": " + palabra);
                                  // Realiza cualquier acción adicional que necesites con la palabra en esta posición*/
                                 textArea.setText(palabra.toString());
@@ -271,7 +267,7 @@ public class GUI {
                                 break;
                             }
                         }
-                        if (stopTimerAganar==palabrasMostrar.size()){
+                        if (stopTimerAganar== ShowWords.size()){
                             if (counter==5){
                                 estado=0;
                                 timerPalabras.stop();
@@ -297,7 +293,7 @@ public class GUI {
                     timer.start(); // Inicia el cronómetro cuando se presiona OK
                     System.out.println(modelGame.leerTxt("C:\\Users\\Usuario\\Desktop\\Game2\\WordsGame\\src\\recursos\\palabras.txt"));
                     modelGame.niveles();
-                    palabrasAGanar = modelGame.getPalabrasElegidas();
+                    wordToWin = modelGame.getPalabrasElegidas();
                 }
             }
             if (e.getSource() == buttonSalir) {
