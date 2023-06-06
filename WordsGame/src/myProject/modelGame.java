@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//Modelado del luego
+
 public class modelGame {
     private int nivel=0;
     private List<String> palabras;
@@ -16,6 +18,7 @@ public class modelGame {
     private List<String> palabrasElegidas;
     private int aciertos=0;
 
+        // lectura del txt de 1000 palabras
     public List<String> leerTxt(String direccion) {
         palabras = new ArrayList<>();
 
@@ -37,6 +40,7 @@ public class modelGame {
         return palabras;
     }
 
+       //se obtienen palabras de manear aleatoria
     public List<String> obtenerPalabrasAleatorias(List<String> palabras, int cantidad, int limite) {
         palabrasAleatorias = new ArrayList<>();
 
@@ -87,16 +91,17 @@ public class modelGame {
         return palabrasElegidas;
     }
 
+        //se obtienen niveles
     public int setNivel(int nivel) {
         this.nivel = nivel;
         return nivel;
     }
-
+    //se obtienen aciertos
     public int setAciertos(int aciertos) {
         this.aciertos = aciertos;
         return aciertos;
     }
-
+        //metodo para escalar niveles
     public void niveles() {
         if (palabras == null) {
             System.err.println("La lista de palabras no ha sido inicializada. Llama al método leerTxt() primero.");
