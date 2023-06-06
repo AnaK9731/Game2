@@ -12,6 +12,7 @@ public class modelGame {
     private List<String> palabras;
     private List<String> palabrasAleatorias;
     private List<String> palabrasElegidas;
+    private int aciertos=0;
 
     public List<String> leerTxt(String direccion) {
         palabras = new ArrayList<>();
@@ -91,8 +92,116 @@ public class modelGame {
             return;
         }
 
-        if (nivel == 0) {
+        if (nivel == 0 && aciertos==7) {
             int cantidadPalabrasMostrar = 20;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 1 && aciertos==7) {
+            int cantidadPalabrasMostrar = 40;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 2 && aciertos<7) {
+            int cantidadPalabrasMostrar = 50;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 3 && aciertos==8) {
+            int cantidadPalabrasMostrar = 60;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 4 && aciertos==8) {
+            int cantidadPalabrasMostrar = 70;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 5 && aciertos<8) {
+            int cantidadPalabrasMostrar = 80;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 6 && aciertos==9) {
+            int cantidadPalabrasMostrar = 100;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 7 && aciertos==9) {
+            int cantidadPalabrasMostrar = 120;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 8 && aciertos<9) {
+            int cantidadPalabrasMostrar = 140;
+            List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
+
+            int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
+            List<String> palabrasElegidas = elegirPalabras(palabrasMostradas, cantidadPalabrasElegir);
+            System.out.println("Palabras aleatorias:");
+            System.out.println(palabrasMostradas);
+
+            System.out.println("Palabras elegidas:");
+            System.out.println(palabrasElegidas);
+        }
+        if (nivel == 9 && aciertos==10) {
+            int cantidadPalabrasMostrar = 200;
             List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
 
             int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
