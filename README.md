@@ -1,4 +1,6 @@
 MINIPROYECTO 2 WORDS GAME
+ANA LUCIA MORALES AMORTEGUI
+JOSE HENAO MONTES
 
 Este ejercicio entrena la memoria episódica verbal reciente. Es importante en tareas donde
 es útil reconocer qué información hemos oído antes, como en conversaciones, películas o ir
