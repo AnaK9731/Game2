@@ -27,6 +27,8 @@ public class GUI {
     //Declared components
     private int estado= 0;
     private Timer timer, timerPalabras;
+    private String palabraJtextArea;
+    private int contadorAGanar=0;
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, centerP, westP;
     private JLabel timeLabel;
@@ -80,9 +82,9 @@ public class GUI {
         modelGame = new modelGame();
 
         //Inicia el timer
-        timerPalabras = new Timer(100,escucha);
+        timerPalabras = new Timer(1000,escucha);
         timerPalabras.setInitialDelay(0);
-        timer = new Timer(100, escucha);
+        timer = new Timer(10, escucha);
         timer.setInitialDelay(0);
 
         //Creando un JtextArea
@@ -180,20 +182,32 @@ public class GUI {
         buttonNo.addActionListener(escucha);
         centerP.add(buttonNo); // Agregar el botón "NO"
 
-        TotalGUI.add(centerP, BorderLayout.CENTER);
+       TotalGUI.add(centerP, BorderLayout.CENTER);
+
 
 
         TotalGUI.setOpaque(true);
         return (TotalGUI);
-
-
     }
-
     private class Escucha implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            if (e.getSource()==buttonYes){
+                palabraJtextArea = textArea.getText();
+                if (palabrasAGanar.contains(palabraJtextArea)) {
+                    System.out.println("La palabra '" + palabraJtextArea + "' está en la lista de palabras elegidas.");
+                    contadorAGanar++;
+                }
+            }
+            if (e.getSource()==buttonNo){
+                    palabraJtextArea = textArea.getText();
+                    if (palabrasAGanar.contains(palabraJtextArea)){
+                        JOptionPane.showMessageDialog(null,"La palabra '" + palabraJtextArea + "' Si está en la lista de palabras elegidas.");
+                        // Realiza la acción que deseas cuando la palabra NO está en la lista
+                    }
+            }
             if (e.getSource() == buttonAyuda) {
                 VentanaAyuda ventanaAyuda = new VentanaAyuda();
                 // Muestra la ventana de ayuda
