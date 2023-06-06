@@ -90,7 +90,6 @@ public class GUI {
 
         scrollPane = new JScrollPane(textArea);
 
-
         TotalGUI = new JPanel(new GridLayout(2, 2));
         TotalGUI.setLayout(new BorderLayout(2, 2));  //set layout for the Container Pane
         northP = new JPanel();
