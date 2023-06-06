@@ -24,7 +24,8 @@ public class GUI {
     private int estado= 0;
     private Timer timer, timerPalabras;
     private String wordJtexArea;
-    private int contadorAGanar=0;
+    private int contadorAGanar=0, nivelDeseado;
+    private  double porcentajeAciertos;
     static JFrame frame;
     static JPanel TotalGUI, northP, southP, centerP, westP;
     private JLabel timeLabel;
@@ -37,7 +38,6 @@ public class GUI {
     private JTextArea textArea;
     private int option;
     private String alias;
-
     private int counter, segundos;
     private modelGame modelGame;
     private List<String> wordToWin, ShowWords;
@@ -55,7 +55,6 @@ public class GUI {
         frame.setSize(900, 700); //Size of main window
         frame.setVisible(true);
 
-
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();//Cambia de tamaño la pantalla
 
         // gets & sets frame size/location
@@ -71,7 +70,6 @@ public class GUI {
     public JPanel create_Content_Pane() {
 
         //Create listener object and control object
-
         escucha = new Escucha();
 
         //Falta el objeto de modelGame.
@@ -143,9 +141,7 @@ public class GUI {
         buttonGroup.add(buttonSalir);
         left.add(buttonSalir);
 
-
         westP.add(left);
-
 
         /**SOUTH PANEL-CRONOMETRO*/
 
@@ -185,16 +181,26 @@ public class GUI {
         return (TotalGUI);
     }
     private class Escucha implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
-
             if (e.getSource()==buttonYes){
                 wordJtexArea = textArea.getText();
                 if (wordToWin.contains(wordJtexArea)) {
                     System.out.println("La palabra '" + wordJtexArea + "' está en la lista de palabras elegidas.");
-
+                    contadorAGanar++;
+                    if (stopTimerAganar == ShowWords.size()){
+                        JOptionPane.showMessageDialog(null,"Hola que haces");
+                        porcentajeAciertos = (double) contadorAGanar / wordToWin.size() * 100;
+                    }
                 }
+            }
+            //Nivel 1
+            if (porcentajeAciertos >= 70) {
+                JOptionPane.showMessageDialog(null,"SE REINICIA");
+                modelGame.setAciertos(70);
+                modelGame.setNivel(1);
+                nivel = 2;
+                timer.start();
             }
             if (e.getSource()==buttonNo){
                     wordJtexArea = textArea.getText();
@@ -208,6 +214,7 @@ public class GUI {
                 // Muestra la ventana de ayuda
                 ventanaAyuda.setVisible(true);
             }
+            if (estado==0){
             if (e.getSource() == timer) {
                 if (counter < 5) {
                     counter++;// Incrementa el contador cada segundo
@@ -252,6 +259,7 @@ public class GUI {
                 else if (counter==5) {
                     counter=0;
                 }
+            }
             }
             //Iniciando a mostrar las palabras aleatorias para que seleccione las correctas.
             if (estado==1){
