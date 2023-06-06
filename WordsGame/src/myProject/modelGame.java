@@ -1,4 +1,5 @@
 package myProject;
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -85,6 +86,15 @@ public class modelGame {
         return palabrasElegidas;
     }
 
+    public int setNivel(int nivel) {
+        this.nivel = nivel;
+        return nivel;
+    }
+
+    public int setAciertos(int aciertos) {
+        this.aciertos = aciertos;
+        return aciertos;
+    }
 
     public void niveles() {
         if (palabras == null) {
@@ -92,8 +102,8 @@ public class modelGame {
             return;
         }
 
-        if (nivel == 0 && aciertos==7) {
-            int cantidadPalabrasMostrar = 20;
+        if (nivel == 0) {
+            int cantidadPalabrasMostrar = 10;
             List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
 
             int cantidadPalabrasElegir = palabrasMostradas.size() / 2;
@@ -104,7 +114,7 @@ public class modelGame {
             System.out.println("Palabras elegidas:");
             System.out.println(palabrasElegidas);
         }
-        if (nivel == 1 && aciertos==7) {
+        if (nivel == 1 && aciertos==70) {
             int cantidadPalabrasMostrar = 40;
             List<String> palabrasMostradas = obtenerPalabrasAleatorias(palabras, cantidadPalabrasMostrar, palabras.size());
 
@@ -115,6 +125,8 @@ public class modelGame {
 
             System.out.println("Palabras elegidas:");
             System.out.println(palabrasElegidas);
+            JOptionPane.showMessageDialog(null, "Pasaste de nivel");
+
         }
         if (nivel == 2 && aciertos<7) {
             int cantidadPalabrasMostrar = 50;
