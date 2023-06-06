@@ -190,12 +190,14 @@ public class GUI {
             if (e.getSource()==buttonYes){
                 wordJtexArea = textArea.getText();
                 if (wordToWin.contains(wordJtexArea)) {
-                    System.out.println("La palabra '" + wordJtexArea + "' está en la lista de palabras elegidas.");
+                    JOptionPane.showMessageDialog(null,"La palabra '" + wordJtexArea + "' Si está en la lista de palabras elegidas.");
                     contadorAGanar++;
                     if (stopTimerAganar == ShowWords.size()){
                         JOptionPane.showMessageDialog(null,"Hola que haces");
                         porcentajeAciertos = (double) contadorAGanar / wordToWin.size() * 100;
                     }
+                }else {
+                    JOptionPane.showMessageDialog(null, "La palabra no estaba");
                 }
             }
             //Nivel 1
@@ -213,6 +215,8 @@ public class GUI {
                     if (wordToWin.contains(wordJtexArea)){
                         JOptionPane.showMessageDialog(null,"La palabra '" + wordJtexArea + "' Si está en la lista de palabras elegidas.");
                         // Realiza la acción que deseas cuando la palabra NO está en la lista
+                    }else {
+                        JOptionPane.showMessageDialog(null, "La palabra No estaba");
                     }
             }
             if (e.getSource() == buttonAyuda) {
