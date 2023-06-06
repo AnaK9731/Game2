@@ -77,10 +77,14 @@ public class modelGame {
         while (palabrasElegidas.size() < cantidad) {
             int index = random.nextInt(palabrasMostradas.size());
             String palabra = palabrasMostradas.get(index);
-            palabrasElegidas.add(palabra);
+
+            if (!palabrasElegidas.contains(palabra)) {
+                palabrasElegidas.add(palabra);
+            }
         }
         return palabrasElegidas;
     }
+
 
     public void niveles() {
         if (palabras == null) {
